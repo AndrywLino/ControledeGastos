@@ -21,12 +21,6 @@ namespace ControledeGastos.iOS.Services
             return user != null;
         }
 
-        public async Task<string> LoginWithEmailAndPassword(string email, string password)
-        {
-            var user = await Auth.DefaultInstance.SignInWithPasswordAsync(email, password);
-            return await user.User.GetIdTokenAsync();
-        }
-
         public bool SignOut()
         {
             try
@@ -35,6 +29,46 @@ namespace ControledeGastos.iOS.Services
                 return error == null;
             }
             catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<string> LoginWithEmailAndPassword(string email, string password)
+        {
+            try
+            {
+                var user = await Auth.DefaultInstance.SignInWithPasswordAsync(email, password);
+                return await user.User.GetIdTokenAsync();
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        public async Task<string> CreatAccountAsync(string email, string password)
+        {
+            try
+            {
+                var user = await Auth.DefaultInstance.CreateUserAsync(email, password);
+                return await user.User.GetIdTokenAsync();
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        public async Task<bool> SendResetPasswordAsync(string email)
+        {
+            try
+            {
+                await Auth.DefaultInstance.SendPasswordResetAsync(email);
+
+                return true;
+            }
+            catch
             {
                 return false;
             }

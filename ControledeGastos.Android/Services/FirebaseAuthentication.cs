@@ -23,13 +23,25 @@ namespace ControledeGastos.Droid.Services
             return user != null;
         }
 
+        public bool SignOut()
+        {
+            try
+            {
+                FirebaseAuth.Instance.SignOut();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public async Task<string> LoginWithEmailAndPassword(string email, string password)
         {
             try
             {
                 var user = await FirebaseAuth.Instance.SignInWithEmailAndPasswordAsync(email, password);
                 var token = await (FirebaseAuth.Instance.CurrentUser.GetIdToken(false).AsAsync<GetTokenResult>());
-                var uid = FirebaseAuth.Instance.Uid;
 
                 return token.Token;
             }
@@ -45,14 +57,30 @@ namespace ControledeGastos.Droid.Services
             }
         }
 
-        public bool SignOut()
+        public async Task<string> CreatAccountAsync(string email, string password)
         {
             try
             {
-                FirebaseAuth.Instance.SignOut();
+                var user = await FirebaseAuth.Instance.CreateUserWithEmailAndPasswordAsync(email, password);
+                var token = await (FirebaseAuth.Instance.CurrentUser.GetIdToken(false).AsAsync<GetTokenResult>());
+
+                return token.Token;
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        public async Task<bool> SendResetPasswordAsync(string email)
+        {
+            try
+            {
+                await FirebaseAuth.Instance.SendPasswordResetEmailAsync(email);
+
                 return true;
             }
-            catch (Exception)
+            catch
             {
                 return false;
             }

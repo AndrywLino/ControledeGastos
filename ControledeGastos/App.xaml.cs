@@ -16,7 +16,8 @@ namespace ControledeGastos
             _auth = DependencyService.Get<IFirebaseAuthentication>();
 
             if (_auth.IsSignIn())
-                MainPage = new AboutPage();
+                MainPage = new LoginPage();
+            //MainPage = new AboutPage();
             else
                 MainPage = new LoginPage();
         }

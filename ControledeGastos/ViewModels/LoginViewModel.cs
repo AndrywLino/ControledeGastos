@@ -8,8 +8,6 @@ namespace ControledeGastos.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        public Command LoginCommand { get; }
-
         string StrEmail;
 
         public string EntEmail
@@ -37,17 +35,5 @@ namespace ControledeGastos.ViewModels
                 OnPropertyChanged(nameof(StrSenha));
             }
         }
-
-        public LoginViewModel()
-        {
-            //LoginCommand = new Command(OnLoginClicked);
-        }
-
-        //private async void OnLoginClicked(object obj)
-        //{
-
-            // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
-          //  await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
-        //}
     }
 }

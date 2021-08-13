@@ -25,6 +25,20 @@ namespace ControledeGastos.Views
 
         private async void LoginButton_Clicked(object sender, EventArgs e)
         {
+            //bool message = await _auth.SendResetPasswordAsync(_vm.EntEmail);
+
+            //chamar função de criar login
+            //string token = await _auth.CreatAccountAsync(_vm.EntEmail, _vm.EntSenha);
+            //if(token != string.Empty)
+            //{
+            //    App.Current.MainPage = new AboutPage();
+            //}
+            //else
+            //{
+            //    ShowError();
+            //}
+
+            //chamar login
             string token = await _auth.LoginWithEmailAndPassword(_vm.EntEmail, _vm.EntSenha);
             if (token != string.Empty)
             {
@@ -39,6 +53,11 @@ namespace ControledeGastos.Views
         private async void ShowError()
         {
             await DisplayAlert("Authentication Failed", "Email or password are incorrect. Try again!", "OK");
+        }
+
+        private async void ForgotPassword_Clicked(object sender, EventArgs e)
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new ForgotPasswordPage());
         }
     }
 }
