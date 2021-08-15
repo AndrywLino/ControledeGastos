@@ -16,10 +16,10 @@ namespace ControledeGastos
             _auth = DependencyService.Get<IFirebaseAuthentication>();
 
             if (_auth.IsSignIn())
-                MainPage = new LoginPage();
-            //MainPage = new AboutPage();
+                MainPage = new NavigationPage(new LoginPage());
+            //MainPage = new NavigationPage(new AppShell());
             else
-                MainPage = new LoginPage();
+                MainPage = new NavigationPage(new LoginPage());
         }
 
         protected override void OnStart()

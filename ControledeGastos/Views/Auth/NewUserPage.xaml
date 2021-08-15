@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ControledeGastos.Views.Auth.NewUserPage"
+    Title="Novo Usuario">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <Label Text="Digite seu nome."/>
+            <Entry Placeholder="Nome" Text="{Binding EntName}"/>
+            <Label Text="Digite seu email"/>
+            <Entry Placeholder="Email" Keyboard="Email" Text="{Binding EntEmail}"/>
+            <Label Text="Digite sua senha"/>
+            <Entry Placeholder="Senha" IsPassword="True" Text="{Binding EntPassword}"/>
+            <Label Text="Confirme sua senha" />
+            <Entry Placeholder="Senha" IsPassword="True" Text="{Binding EntConfirmPassword}"/>
+            <StackLayout Padding="15">
+                <Label Text="{Binding LblMessage}" TextColor="Red"/>
+                <ProgressBar Progress="{Binding PrbValue}" ProgressColor="{Binding LblPassColor}" IsVisible="true" />
+                <Label Text="{Binding LblPassMessage}" TextColor="{Binding LblPassColor}"/>
+            </StackLayout>
+            <Button Text="Confirmar" Command="{Binding ConfirmCommand}" IsEnabled="{Binding BtnConfirmVisible}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

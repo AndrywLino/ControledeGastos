@@ -41,9 +41,16 @@ namespace ControledeGastos.Droid.Services
             try
             {
                 var user = await FirebaseAuth.Instance.SignInWithEmailAndPasswordAsync(email, password);
-                var token = await (FirebaseAuth.Instance.CurrentUser.GetIdToken(false).AsAsync<GetTokenResult>());
 
-                return token.Token;
+                if (FirebaseAuth.Instance.CurrentUser.IsEmailVerified)
+                {
+                    return "Ok";
+                }
+                else
+                {
+                    await FirebaseAuth.Instance.CurrentUser.SendEmailVerification();
+                    return "Email não verificado, cheque sua caixa de email para validar seu acesso.";
+                }
             }
             catch (FirebaseAuthInvalidUserException e)
             {
@@ -62,9 +69,9 @@ namespace ControledeGastos.Droid.Services
             try
             {
                 var user = await FirebaseAuth.Instance.CreateUserWithEmailAndPasswordAsync(email, password);
-                var token = await (FirebaseAuth.Instance.CurrentUser.GetIdToken(false).AsAsync<GetTokenResult>());
+                await FirebaseAuth.Instance.CurrentUser.SendEmailVerification();
 
-                return token.Token;
+                return user.User.Uid;
             }
             catch
             {

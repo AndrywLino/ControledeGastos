@@ -9,12 +9,12 @@
     <ContentPage.Content>
         <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
             <Label Text="Email"/>
-            <Entry Text="{Binding EntEmail}" Keyboard="Email"/>
+            <Entry Text="{Binding EntEmail}" Keyboard="Email" Placeholder="Email"/>
             <Label Text="Senha"/>
-            <Entry Text="{Binding EntSenha}" IsPassword="True"/>
-            <Button VerticalOptions="Center" Text="Login" Clicked="LoginButton_Clicked"/>
-            <Button Clicked="ForgotPassword_Clicked" Text="Esqueci minha senha" />
-            <Button Clicked="ForgotPassword_Clicked" Text="Novo Usuario"/>
+            <Entry Text="{Binding EntSenha}" IsPassword="True" Placeholder="Senha"/>
+            <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
+            <Button Text="Esqueci minha senha" Command="{Binding ForgotPasswordCommand}" />
+            <Button Text="Novo Usuario" Command="{Binding NewUserCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

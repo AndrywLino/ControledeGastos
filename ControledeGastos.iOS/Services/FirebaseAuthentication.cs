@@ -39,7 +39,13 @@ namespace ControledeGastos.iOS.Services
             try
             {
                 var user = await Auth.DefaultInstance.SignInWithPasswordAsync(email, password);
-                return await user.User.GetIdTokenAsync();
+                if (Auth.DefaultInstance.CurrentUser.IsEmailVerified)
+                    return "Ok";
+                else
+                {
+                    await user.User.SendEmailVerificationAsync();
+                    return "Email não verificado, cheque sua caixa de email para validar seu acesso.";
+                }
             }
             catch
             {
@@ -52,7 +58,9 @@ namespace ControledeGastos.iOS.Services
             try
             {
                 var user = await Auth.DefaultInstance.CreateUserAsync(email, password);
-                return await user.User.GetIdTokenAsync();
+                await user.User.SendEmailVerificationAsync();
+
+                return user.User.Uid;
             }
             catch
             {
