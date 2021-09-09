@@ -33,5 +33,7 @@
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>CFBundleDisplayName</key>
 	<string>Controle de Gastos</string>
+	<key>CFBundleDisplayName</key>
+	<string>User Dialogs</string>
 </dict>
 </plist>

@@ -11,6 +11,20 @@ namespace ControledeGastos.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
+        #region Constructor
+
+        private IFirebaseAuthentication _auth;
+
+        public LoginViewModel()
+        {
+            LoginCommand = new Command(async () => await LoginCommandAsync());
+            ForgotPasswordCommand = new Command(async () => await ForgotPasswordPushPage());
+            NewUserCommand = new Command(async () => await NewUserPushPage());
+            _auth = DependencyService.Get<IFirebaseAuthentication>();
+        }
+
+        #endregion
+
         #region View
 
         public Command LoginCommand { get; }
@@ -29,7 +43,7 @@ namespace ControledeGastos.ViewModels
                 if (value == StrEmail)
                     return;
                 StrEmail = value;
-                TextChangedCommand.Execute(StrEmail);
+                //TextChangedCommand.Execute(StrEmail);
                 OnPropertyChanged(nameof(StrEmail));
             }
         }
@@ -50,28 +64,15 @@ namespace ControledeGastos.ViewModels
 
         #endregion
 
-        #region Constructor
-
-        private IFirebaseAuthentication _auth;
-
-        public LoginViewModel()
-        {
-            LoginCommand = new Command(async () => await LoginCommandAsync());
-            ForgotPasswordCommand = new Command(async () => await ForgotPasswordPushPage());
-            NewUserCommand = new Command(async () => await NewUserPushPage());
-            _auth = DependencyService.Get<IFirebaseAuthentication>();
-        }
-
-        #endregion
 
         #region Commands
 
-        public Command TextChangedCommand => new Command<string>(async (StrEmail) => await TextChanged(StrEmail));
+        //public Command TextChangedCommand => new Command<string>(async (StrEmail) => await TextChanged(StrEmail));
 
-        private async Task TextChanged(string text)
-        {
-            var teste = text;
-        }
+        //private async Task TextChanged(string text)
+        //{
+        //    var teste = text;
+        //}
 
         public async Task LoginCommandAsync()
         {

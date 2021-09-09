@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ControledeGastos.Views.AddPage"
+    Shell.PresentationMode="ModalAnimated"
+    Title="Add"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:converterPack="clr-namespace:Xamarin.Forms.ConvertersPack;assembly=Xamarin.Forms.ConvertersPack"
+    ios:Page.UseSafeArea="true">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converterPack:CurrencyConverter x:Key="CurrencyConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Spacing="5" Padding="15">
+            <Label Text="Titulo" />
+            <Entry Placeholder="Digite aqui"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="Tipo" Grid.ColumnSpan="2" Grid.Row="0"/>
+                <RadioButton Content="Entrada" TextColor="Green" Grid.Column="0" Grid.Row="1"/>
+                <RadioButton Content="Saida" TextColor="Red" Grid.Column="1" Grid.Row="1"/>
+            </Grid>
+            <Label Text="Valor"/>
+            <Entry Placeholder="R$ 2000,00" Keyboard="Numeric" Text="{Binding Money, Converter={StaticResource CurrencyConverter}}"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="Valor Parcelado?" Grid.ColumnSpan="2" Grid.Row="0"/>
+                <RadioButton Content="Não" TextColor="Red" Grid.Column="0" Grid.Row="1"/>
+                <RadioButton Content="Sim" TextColor="Green" Grid.Column="1" Grid.Row="1"/>
+                <Label Text="Quantas Vezes?" Grid.ColumnSpan="2" Grid.Row="2"/>
+                <Entry Placeholder="12" Keyboard="Numeric" Grid.Column="0" Grid.Row="3"/>
+                <Label Text="Vezes" Grid.Column="1" HorizontalTextAlignment="Start" Grid.Row="3"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Text="Cancelar" Grid.Column="0"/>
+                <Button Text="Confirmar" Grid.Column="1"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
