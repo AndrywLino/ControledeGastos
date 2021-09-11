@@ -14,5 +14,7 @@ namespace ControledeGastos.Services
         bool SignOut();
 
         bool IsSignIn();
+
+        string GetUserId();
     }
 }

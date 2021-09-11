@@ -34,6 +34,11 @@ namespace ControledeGastos.iOS.Services
             }
         }
 
+        public string GetUserId()
+        {
+            return Auth.DefaultInstance.CurrentUser.Uid;
+        }
+
         public async Task<string> LoginWithEmailAndPassword(string email, string password)
         {
             try

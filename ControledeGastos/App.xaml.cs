@@ -17,8 +17,8 @@ namespace ControledeGastos
 
             if (_auth.IsSignIn())
                 MainPage = new AppShell();
-            //MainPage = new NavigationPage(new LoginPage());
             else
+                //    MainPage = new AppShell();
                 MainPage = new NavigationPage(new LoginPage());
         }
 
