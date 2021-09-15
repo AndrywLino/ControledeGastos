@@ -39,6 +39,11 @@ namespace ControledeGastos.iOS.Services
             return Auth.DefaultInstance.CurrentUser.Uid;
         }
 
+        public async Task<string> GetUserTokenAsync()
+        {
+            return await Auth.DefaultInstance.CurrentUser.GetIdTokenAsync();
+        }
+
         public async Task<string> LoginWithEmailAndPassword(string email, string password)
         {
             try

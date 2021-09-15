@@ -9,5 +9,6 @@ namespace ControledeGastos.Models
         public decimal Valor { get; set; }
         public int Parcelas { get; set; }
         public string LabelColor { get; set; }
+        public DateTime DataCompra { get; set; }
     }
 }

@@ -34,6 +34,8 @@
             </Grid>
             <Label Text="Valor"/>
             <Entry Placeholder="R$ 2000,00" Keyboard="Numeric" Text="{Binding EntValor, Converter={StaticResource CurrencyConverter}}"/>
+            <Label Text="Data"/>
+            <DatePicker Date="{Binding SelectedDate}"/> 
             <Grid IsVisible="{Binding ParceladoGrid}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
@@ -65,13 +67,13 @@
                     </Grid>
                 </StackLayout>
             </Grid>
-            <Grid IsVisible="{Binding ButtonsGrid}">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button Text="Cancelar" Grid.Column="0" Command="{Binding BtnCancelarCommand}"/>
-                <Button Text="Confirmar" Grid.Column="1" Command="{Binding BtnConfirmarCommand}"/>
+                <Button Text="Confirmar" Grid.Column="1" Command="{Binding BtnConfirmarCommand}" IsEnabled="{Binding ButtonsGrid}"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

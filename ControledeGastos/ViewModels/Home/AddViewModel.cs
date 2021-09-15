@@ -169,6 +169,19 @@ namespace ControledeGastos.ViewModels
             }
         }
 
+        private DateTime _selectedDate;
+        public DateTime SelectedDate
+        {
+            get => _selectedDate;
+            set
+            {
+                if (value == _selectedDate)
+                    return;
+                _selectedDate = value;
+                OnPropertyChanged(nameof(_selectedDate));
+            }
+        }
+
         #endregion
 
 
@@ -178,6 +191,7 @@ namespace ControledeGastos.ViewModels
         {
             BtnCancelarCommand = new Command(CancelCommand);
             BtnConfirmarCommand = new Command(ConfirmCommand);
+            SelectedDate = DateTime.Today;
         }
 
         #endregion
@@ -192,6 +206,7 @@ namespace ControledeGastos.ViewModels
 
         private async void ConfirmCommand()
         {
+            decimal valor = EntValor;
             TradeModel trade = new TradeModel();
             if (!String.IsNullOrEmpty(EntTitulo))
                 trade.Titulo = EntTitulo;
@@ -206,7 +221,7 @@ namespace ControledeGastos.ViewModels
             {
                 trade.Tipo = 2;
                 trade.LabelColor = "Red";
-                EntValor *= -1;
+                valor = EntValor * (-1);
             }
 
             if (RadioNao)
@@ -214,12 +229,14 @@ namespace ControledeGastos.ViewModels
             if (RadioSim)
                 trade.Parcelas = EntParcelas;
 
-            if(EntValor != 0)
-                trade.Valor = EntValor;
+            if (EntValor != 0)
+                trade.Valor = valor;
+
+            trade.DataCompra = SelectedDate;
 
             bool success = await FirebaseDatabaseService.AddTrade(trade);
 
-            if(success)
+            if (success)
                 await Shell.Current.GoToAsync("..");
         }
 

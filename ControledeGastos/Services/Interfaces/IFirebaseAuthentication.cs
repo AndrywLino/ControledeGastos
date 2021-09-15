@@ -16,5 +16,7 @@ namespace ControledeGastos.Services
         bool IsSignIn();
 
         string GetUserId();
+
+        Task<string> GetUserTokenAsync();
     }
 }

@@ -41,11 +41,17 @@ namespace ControledeGastos.Droid.Services
             return FirebaseAuth.Instance.CurrentUser.Uid;
         }
 
+        public async Task<string> GetUserTokenAsync()
+        {
+            return null;
+        }
+
         public async Task<string> LoginWithEmailAndPassword(string email, string password)
         {
             try
             {
                 var user = await FirebaseAuth.Instance.SignInWithEmailAndPasswordAsync(email, password);
+                var token = await user.User.GetIdToken(false);
 
                 if (FirebaseAuth.Instance.CurrentUser.IsEmailVerified)
                 {

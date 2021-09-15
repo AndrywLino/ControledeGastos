@@ -22,10 +22,19 @@
     <None Remove="Behaviors.Forms" />
     <None Remove="Xamarin.Forms.BehaviorsPack" />
     <None Remove="Services\Interfaces\" />
+    <None Remove="Views\Home\" />
+    <None Remove="ViewModels\Home\" />
+    <None Remove="AspNetCore.Firebase.Authentication" />
+    <None Remove="FirebaseAuthentication.net" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Auth\" />
     <Folder Include="ViewModels\Auth\" />
     <Folder Include="Services\Interfaces\" />
+    <Folder Include="Views\Home\" />
+    <Folder Include="ViewModels\Home\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Services\FirebaseAuthService.cs" />
   </ItemGroup>
 </Project>
