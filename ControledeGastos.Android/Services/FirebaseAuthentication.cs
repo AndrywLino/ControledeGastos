@@ -15,8 +15,10 @@ using Firebase.Auth;
 
 namespace ControledeGastos.Droid.Services
 {
+
     public class FirebaseAuthentication : IFirebaseAuthentication
     {
+
         public bool IsSignIn()
         {
             var user = FirebaseAuth.Instance.CurrentUser;
@@ -43,7 +45,8 @@ namespace ControledeGastos.Droid.Services
 
         public async Task<string> GetUserTokenAsync()
         {
-            return null;
+            var token = await FirebaseAuth.Instance.CurrentUser.GetIdTokenAsync(false);
+            return token.Token;
         }
 
         public async Task<string> LoginWithEmailAndPassword(string email, string password)
@@ -51,7 +54,7 @@ namespace ControledeGastos.Droid.Services
             try
             {
                 var user = await FirebaseAuth.Instance.SignInWithEmailAndPasswordAsync(email, password);
-                var token = await user.User.GetIdToken(false);
+                var token = await user.User.GetIdTokenAsync(false);
 
                 if (FirebaseAuth.Instance.CurrentUser.IsEmailVerified)
                 {
