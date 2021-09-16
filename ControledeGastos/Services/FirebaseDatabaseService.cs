@@ -22,7 +22,7 @@ namespace ControledeGastos.Services
             new FirebaseOptions
             {
                 OfflineDatabaseFactory = (t, s) => new OfflineDatabase(t, s),
-                AuthTokenAsyncFactory = async () => await Task.FromResult(await _auth.GetUserTokenAsync())
+                AuthTokenAsyncFactory = async () => await Task.FromResult(await _auth.GetUserTokenAsync()),
             });
 
         //static FirebaseClient firebase = new FirebaseClient("https://controle-de-gastos-322513-default-rtdb.firebaseio.com");
@@ -34,8 +34,8 @@ namespace ControledeGastos.Services
             _auth = DependencyService.Get<IFirebaseAuthentication>();
             _uid = _auth.GetUserId();
 
-            _tradeDB = firebase.Child("Trades").Child(_uid).AsRealtimeDatabase<TradeModel>("", "", StreamingOptions.Everything, InitialPullStrategy.MissingOnly, true);
-            var teste = _tradeDB.AsObservable();
+            _tradeDB = firebase.Child("Trades").Child(_uid).AsRealtimeDatabase<TradeModel>("", "", StreamingOptions.LatestOnly, InitialPullStrategy.MissingOnly, true);
+            _tradeDB.PullAsync();
         }
 
 
@@ -57,52 +57,77 @@ namespace ControledeGastos.Services
         {
             try
             {
-                if (Internet())
-                {
-                    var resp = await firebase.Child("Trades").Child(_uid).PostAsync(trade);
-                }
-                else
-                {
-                    var resp = _tradeDB.Post(trade);
-                }
-                return true;
+                //var resp = await firebase.Child("Trades").Child(_uid).PostAsync(trade);
+                var key = _tradeDB.Post(trade);
+                trade.TradeId = key;
+                _tradeDB.Put(key, trade);
             }
             catch
             {
-                return false;
+                return await Task.FromResult(false);
             }
+            return await Task.FromResult(true);
+        }
+
+        public static async Task<bool> UpdateTrade(string key, TradeModel trade)
+        {
+            try
+            {
+                _tradeDB.Put(key, trade);
+            }
+            catch
+            {
+                return await Task.FromResult(false);
+            }
+            return await Task.FromResult(true);
+        }
+
+        public static async Task<bool> DeleteTrade(string key)
+        {
+            try
+            {
+                _tradeDB.Delete(key);
+            }
+            catch
+            {
+                return await Task.FromResult(false);
+            }
+            return await Task.FromResult(true);
         }
 
         public async Task<List<TradeModel>> GetTrades()
         {
             try
             {
-                if (!Internet())
+                //await _tradeDB.PullAsync();
+
+                List<TradeModel> trade = new List<TradeModel>();
+
+                var result = _tradeDB.Once().Select(x => x.Object).ToList();
+                await Task.Run(() => result.ForEach(delegate (TradeModel tm)
                 {
-                    List<TradeModel> trade = new List<TradeModel>();
+                    trade.Add(tm);
+                }));
 
-                    //await Task.Run(() => trades.ForEach(delegate (TradeModel trade)
-                    foreach (var item in _tradeDB.Once())
-                    {
-                        trade.Add(item.Object);
-                    }
+                return await Task.FromResult(trade);
 
-                    return trade;
-                }
-                else
-                {
-                    var tradeDB = firebase.Child("Trades").Child(_uid).AsRealtimeDatabase<TradeModel>("", "", StreamingOptions.Everything, InitialPullStrategy.Everything, true).Once();
+                //foreach (var item in _tradeDB.Once())
+                //{
+                //    trade.Add(item.Object);
+                //}
 
-                    return (await firebase.Child("Trades").Child(_uid).OnceAsync<TradeModel>())
-                        .Select(item => new TradeModel
-                        {
-                            Titulo = item.Object.Titulo,
-                            Valor = item.Object.Valor,
-                            Parcelas = item.Object.Parcelas,
-                            Tipo = item.Object.Tipo,
-                            LabelColor = item.Object.LabelColor,
-                        }).ToList();
-                }
+
+                //var tradeDB = firebase.Child("Trades").Child(_uid).AsRealtimeDatabase<TradeModel>("", "", StreamingOptions.Everything, InitialPullStrategy.Everything, true).Once();
+
+                //return (await firebase.Child("Trades").Child(_uid).OnceAsync<TradeModel>())
+                //    .Select(item => new TradeModel
+                //    {
+                //        Titulo = item.Object.Titulo,
+                //        Valor = item.Object.Valor,
+                //        Parcelas = item.Object.Parcelas,
+                //        Tipo = item.Object.Tipo,
+                //        LabelColor = item.Object.LabelColor,
+                //    }).ToList();
 
             }
             catch (Exception e)

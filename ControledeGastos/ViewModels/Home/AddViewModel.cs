@@ -1,10 +1,12 @@
 ﻿using System;
 using ControledeGastos.Models;
 using ControledeGastos.Services;
+using Newtonsoft.Json;
 using Xamarin.Forms;
 
 namespace ControledeGastos.ViewModels
 {
+    [QueryProperty(nameof(Content), nameof(Content))]
     public class AddViewModel : BaseViewModel
     {
         #region View
@@ -186,12 +188,56 @@ namespace ControledeGastos.ViewModels
 
 
         #region Constructor
-
+        string _content = "";
+        public string Content
+        {
+            get => _content;
+            set
+            {
+                _content = Uri.UnescapeDataString(value ?? string.Empty);
+                OnPropertyChanged();
+                ConvertJson(_content);
+            }
+        }
         public AddViewModel()
         {
             BtnCancelarCommand = new Command(CancelCommand);
             BtnConfirmarCommand = new Command(ConfirmCommand);
             SelectedDate = DateTime.Today;
+        }
+
+        private void ConvertJson(string json)
+        {
+            var trade = JsonConvert.DeserializeObject<TradeModel>(json);
+            if(trade.Tipo == 2)
+            {
+                _parceladoGrid = true;
+                _radioSaida = true;
+            }
+            else if(trade.Tipo == 1)
+            {
+                _parceladoGrid = false;
+                _buttonsGrid = true;
+                _radioEntrada = true;
+            }
+            if (trade.Parcelas > 0)
+                _radioSim = true;
+            else
+                _radioNao = true;
+            _entTitulo = trade.Titulo;
+            _entValor = trade.Valor;
+            _entParcelas = trade.Parcelas;
+            _selectedDate = trade.DataCompra;
+            OnPropertyChanged(nameof(ParceladoGrid));
+            OnPropertyChanged(nameof(RadioSaida));
+            OnPropertyChanged(nameof(ButtonsGrid));
+            OnPropertyChanged(nameof(RadioEntrada));
+            OnPropertyChanged(nameof(RadioSim));
+            OnPropertyChanged(nameof(EntTitulo));
+            OnPropertyChanged(nameof(EntValor));
+            OnPropertyChanged(nameof(EntParcelas));
+            OnPropertyChanged(nameof(SelectedDate));
+            OnPropertyChanged(nameof(RadioNao));
         }
 
         #endregion

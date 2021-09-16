@@ -3,9 +3,11 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:xct="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
-    xmlns:converterPack="clr-namespace:Xamarin.Forms.ConvertersPack;assembly=Xamarin.Forms.ConvertersPack"
+    xmlns:converterPack="clr-namespace:Xamarin.Forms.ConvertersPack;assembly=Xamarin.Forms.ConvertersPack" 
+    xmlns:viewmodels="clr-namespace:ControledeGastos.ViewModels"
     x:Class="ControledeGastos.Views.HomePage"
-    Title="Movimentações">
+    Title="Movimentações"
+    x:Name="this">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -26,6 +28,10 @@
         <ToolbarItem Text="Novo" Command="{Binding AddPageCommand}" />
     </ContentPage.ToolbarItems>
 
+    <ContentPage.BindingContext>
+        <viewmodels:HomeViewModel />
+    </ContentPage.BindingContext>
+
     <ContentPage.Content>
         <StackLayout Padding="10">
 
@@ -40,11 +46,15 @@
             </Grid>
             <ListView ItemsSource="{Binding Items}"
               CachingStrategy="RecycleElement"
-              RowHeight="60">
+              RowHeight="60" SelectionMode="None" IsPullToRefreshEnabled="true" RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Editar" IconImageSource="edit.png" Command="{Binding Source={x:Reference this}, Path=BindingContext.EditCommand}" CommandParameter="{Binding .}"/>
+                                <MenuItem Text="Deletar" IconImageSource="delete.png" Command="{Binding Source={x:Reference this}, Path=BindingContext.DeleteCommand}" CommandParameter="{Binding .}" IsDestructive="True"/>
+                            </ViewCell.ContextActions>
                             <Grid Padding="5">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="25"></RowDefinition>
