@@ -188,6 +188,10 @@ namespace ControledeGastos.ViewModels
 
 
         #region Constructor
+
+        private bool _isEdit = false;
+        private string _keyEdit = "";
+
         string _content = "";
         public string Content
         {
@@ -208,7 +212,9 @@ namespace ControledeGastos.ViewModels
 
         private void ConvertJson(string json)
         {
+            _isEdit = true;
             var trade = JsonConvert.DeserializeObject<TradeModel>(json);
+            _keyEdit = trade.TradeId;
             if(trade.Tipo == 2)
             {
                 _parceladoGrid = true;
@@ -221,13 +227,20 @@ namespace ControledeGastos.ViewModels
                 _radioEntrada = true;
             }
             if (trade.Parcelas > 0)
+            {
                 _radioSim = true;
+                _radioNao = false;
+            }
             else
+            {
                 _radioNao = true;
+                _radioSim = true;
+            }
             _entTitulo = trade.Titulo;
             _entValor = trade.Valor;
             _entParcelas = trade.Parcelas;
             _selectedDate = trade.DataCompra;
+
             OnPropertyChanged(nameof(ParceladoGrid));
             OnPropertyChanged(nameof(RadioSaida));
             OnPropertyChanged(nameof(ButtonsGrid));
@@ -280,7 +293,11 @@ namespace ControledeGastos.ViewModels
 
             trade.DataCompra = SelectedDate;
 
-            bool success = await FirebaseDatabaseService.AddTrade(trade);
+            bool success = false;
+            if (!_isEdit)
+                success = await FirebaseDatabaseService.AddTrade(trade);
+            else
+                success = await FirebaseDatabaseService.UpdateTrade(_keyEdit, trade);
 
             if (success)
                 await Shell.Current.GoToAsync("..");
