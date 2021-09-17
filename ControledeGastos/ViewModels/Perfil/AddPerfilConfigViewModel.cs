@@ -56,6 +56,7 @@ namespace ControledeGastos.ViewModels
 
         public void AddEntryValor()
         {
+            var teste = StacValor;
             var novoStac = new StackLayout
             {
                 Children =
@@ -67,7 +68,7 @@ namespace ControledeGastos.ViewModels
                     }
                 }
             };
-            StacValor.Children.Add(novoStac);
+            //StacValor.Children.Add(novoStac);
             OnPropertyChanged(nameof(StacValor));
         }
 

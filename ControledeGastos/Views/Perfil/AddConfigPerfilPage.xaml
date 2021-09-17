@@ -11,7 +11,9 @@
                 <Label Text="Como gostaria de ser chamado? "  />
                 <Entry Text="{Binding EntApelido}" Placeholder="Digite Aqui..."/>
 
-                <StackLayout BindingContext="{Binding StacValor}"/>
+                <StackLayout x:Name="StackValor">
+                    <Label Text="Teste"/>
+                </StackLayout>
 
                 <Button Text="Adicionar Valor Mensal" Command="{Binding BtnAddValorCommand}"/>
             </StackLayout>
