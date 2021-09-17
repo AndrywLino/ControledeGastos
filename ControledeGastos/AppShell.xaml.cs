@@ -14,6 +14,7 @@ namespace ControledeGastos
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
             Routing.RegisterRoute(nameof(AddPage), typeof(AddPage));
+            Routing.RegisterRoute(nameof(AddConfigPerfilPage), typeof(AddConfigPerfilPage));
         }
 
     }

@@ -210,17 +210,32 @@ namespace ControledeGastos.ViewModels
             SelectedDate = DateTime.Today;
         }
 
+        private void ChangeAll()
+        {
+            OnPropertyChanged(nameof(EntValor));
+            OnPropertyChanged(nameof(RadioEntrada));
+            OnPropertyChanged(nameof(RadioSaida));
+            OnPropertyChanged(nameof(ParceladoGrid));
+            OnPropertyChanged(nameof(ParceladoStac));
+            OnPropertyChanged(nameof(ButtonsGrid));
+            OnPropertyChanged(nameof(RadioNao));
+            OnPropertyChanged(nameof(RadioSim));
+            OnPropertyChanged(nameof(EntTitulo));
+            OnPropertyChanged(nameof(EntParcelas));
+            OnPropertyChanged(nameof(SelectedDate));
+        }
+
         private void ConvertJson(string json)
         {
             _isEdit = true;
             var trade = JsonConvert.DeserializeObject<TradeModel>(json);
             _keyEdit = trade.TradeId;
-            if(trade.Tipo == 2)
+            if (trade.Tipo == 2)
             {
                 _parceladoGrid = true;
                 _radioSaida = true;
             }
-            else if(trade.Tipo == 1)
+            else if (trade.Tipo == 1)
             {
                 _parceladoGrid = false;
                 _buttonsGrid = true;
@@ -230,27 +245,19 @@ namespace ControledeGastos.ViewModels
             {
                 _radioSim = true;
                 _radioNao = false;
+                ParceladoStac = true;
             }
             else
             {
                 _radioNao = true;
-                _radioSim = true;
+                _radioSim = false;
             }
             _entTitulo = trade.Titulo;
             _entValor = trade.Valor;
             _entParcelas = trade.Parcelas;
             _selectedDate = trade.DataCompra;
 
-            OnPropertyChanged(nameof(ParceladoGrid));
-            OnPropertyChanged(nameof(RadioSaida));
-            OnPropertyChanged(nameof(ButtonsGrid));
-            OnPropertyChanged(nameof(RadioEntrada));
-            OnPropertyChanged(nameof(RadioSim));
-            OnPropertyChanged(nameof(EntTitulo));
-            OnPropertyChanged(nameof(EntValor));
-            OnPropertyChanged(nameof(EntParcelas));
-            OnPropertyChanged(nameof(SelectedDate));
-            OnPropertyChanged(nameof(RadioNao));
+            ChangeAll();
         }
 
         #endregion

@@ -6,7 +6,7 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Salario Bruto: R$ 3.000,00" />
-            <Button Text="Alterar meu perfil"/>
+            <Button Text="Alterar meu perfil" Command="{Binding BtnPerfilCommand}"/>
             <Button Text="Logoff" Command="{Binding BtnLogoffCommand}"/>
         </StackLayout>
     </ContentPage.Content>

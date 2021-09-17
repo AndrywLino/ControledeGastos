@@ -38,4 +38,9 @@
   <ItemGroup>
     <Compile Remove="Services\FirebaseAuthService.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Views\Perfil\AddConfigPerfilPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

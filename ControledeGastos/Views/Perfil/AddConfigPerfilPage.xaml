@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="ControledeGastos.Views.AddConfigPerfilPage">
+    <ContentPage.Content>
+        <ScrollView>
+
+            <StackLayout Padding="10">
+                <Label Text="Nome: "  />
+                <Entry Text="{Binding EntNome}" Placeholder="Digite Aqui..."/>
+                <Label Text="Como gostaria de ser chamado? "  />
+                <Entry Text="{Binding EntApelido}" Placeholder="Digite Aqui..."/>
+
+                <StackLayout BindingContext="{Binding StacValor}"/>
+
+                <Button Text="Adicionar Valor Mensal" Command="{Binding BtnAddValorCommand}"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
