@@ -4,18 +4,21 @@
              x:Class="ControledeGastos.Views.AddConfigPerfilPage">
     <ContentPage.Content>
         <ScrollView>
-
             <StackLayout Padding="10">
                 <Label Text="Nome: "  />
-                <Entry Text="{Binding EntNome}" Placeholder="Digite Aqui..."/>
+                <Entry x:Name="EntNome" Placeholder="Digite Aqui..."/>
                 <Label Text="Como gostaria de ser chamado? "  />
-                <Entry Text="{Binding EntApelido}" Placeholder="Digite Aqui..."/>
+                <Entry x:Name="EntApelido" Placeholder="Digite Aqui..."/>
 
-                <StackLayout x:Name="StackValor">
-                    <Label Text="Teste"/>
+                <StackLayout x:Name="StacValor">
                 </StackLayout>
 
-                <Button Text="Adicionar Valor Mensal" Command="{Binding BtnAddValorCommand}"/>
+                <StackLayout x:Name="StacCartao">
+                </StackLayout>
+
+                <Button Text="Adicionar Valor Mensal" Clicked="BtnAddEntryValor"/>
+                <Button Text="Adicionar Cartão" Clicked="BtnAddEntryCartao"/>
+                <Button Text="Salvar" Clicked="BtnAddSalvar"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
