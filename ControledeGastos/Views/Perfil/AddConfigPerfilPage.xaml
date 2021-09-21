@@ -5,24 +5,20 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Padding="10">
-                <StackLayout x:Name="StackNomes">
-                    <Label Text="Nome: "  />
-                    <Entry x:Name="EntNome" Placeholder="Digite Aqui..."/>
-                    <Label Text="Como gostaria de ser chamado? "  />
-                    <Entry x:Name="EntApelido" Placeholder="Digite Aqui..."/>
+                <Label Text="Nome: "  />
+                <Entry x:Name="EntNome" Placeholder="Digite Aqui..."/>
+                <Label Text="Como gostaria de ser chamado? "  />
+                <Entry x:Name="EntApelido" Placeholder="Digite Aqui..."/>
+
+                <StackLayout x:Name="StacValor">
                 </StackLayout>
 
-                <StackLayout x:Name="StackValor">
-                    <Button Text="Adicionar outro valor mensal" Clicked="BtnAddEntryValor" IsVisible="false" x:Name="BtnValorName"/>
+                <StackLayout x:Name="StacCartao">
                 </StackLayout>
 
-                <StackLayout x:Name="StackCartao">
-                    <Button Text="Adicionar outro cartão" Clicked="BtnAddEntryCartao" VerticalOptions="End" IsVisible="false" x:Name="BtnCartaoName"/>
-                </StackLayout>
-
-                <Button Text="Proximo" Clicked="BtnProximo" x:Name="BtnProximoName"/>
-                <Button Text="Voltar" Clicked="BtnVoltar" x:Name="BtnVoltarName" IsVisible="false"/>
-                <Button Text="Salvar" Clicked="BtnAddSalvar" IsVisible="false" x:Name="BtnSalvarName"/>
+                <Button Text="Adicionar Valor Mensal" Clicked="BtnAddEntryValor"/>
+                <Button Text="Adicionar Cartão" Clicked="BtnAddEntryCartao"/>
+                <Button Text="Salvar" Clicked="BtnAddSalvar"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
