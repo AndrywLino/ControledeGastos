@@ -52,6 +52,8 @@ namespace ControledeGastos.Views
             StackValor.Children.Add(newRadioNao);
             StackValor.Children.Add(newLabel1);
             StackValor.Children.Add(newDate);
+
+            //teste
         }
 
         private void BtnAddEntryCartao(object sender, EventArgs e)
