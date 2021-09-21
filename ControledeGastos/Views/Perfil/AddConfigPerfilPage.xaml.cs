@@ -1,4 +1,5 @@
-﻿using ControledeGastos.ViewModels;
+﻿using ControledeGastos.Models;
+using ControledeGastos.ViewModels;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
@@ -26,6 +27,7 @@ namespace ControledeGastos.Views
             var newEntry = new Entry
             {
                 Placeholder = "Digite aqui seu ganho mensal.",
+                Keyboard = Keyboard.Numeric,
             };
             var newRadioSim = new RadioButton
             {
@@ -48,6 +50,7 @@ namespace ControledeGastos.Views
                 Date = DateTime.Now,
             };
             StackValor.Children.Add(newEntry);
+            StackValor.Children.Add(newLabel);
             StackValor.Children.Add(newRadioSim);
             StackValor.Children.Add(newRadioNao);
             StackValor.Children.Add(newLabel1);
@@ -93,17 +96,6 @@ namespace ControledeGastos.Views
             StackValor.Children.Add(newRadioNao);
         }
 
-        private void BtnAddSalvar(object sender, EventArgs e)
-        {
-            foreach (var item in StackValor.Children)
-            {
-                if (item.GetType() == typeof(Entry))
-                {
-                    Entry entry = (Entry)item;
-                    var teste = entry.Text;
-                }
-            }
-        }
 
         private void BtnProximo(object sender, EventArgs e)
         {
@@ -164,6 +156,34 @@ namespace ControledeGastos.Views
                 BtnSalvarName.IsVisible = false;
                 BtnVoltarName.IsVisible = true;
                 _page--;
+            }
+        }
+
+        private void BtnAddSalvar(object sender, EventArgs e)
+        {
+            PerfilUserModel user = new PerfilUserModel();
+
+            foreach (var item in StackValor.Children)
+            {
+                if (item.GetType() == typeof(Entry))
+                {
+                    Entry entry = (Entry)item;
+                    var valor = Convert.ToDecimal(entry.Text);
+                    user.UserGanhoMensal.Add(valor);
+                }
+            }
+            foreach (var item in StackCartao.Children)
+            {
+                if (item.GetType() == typeof(Entry))
+                {
+                    Entry entry = (Entry)item;
+                    DatePicker datePicker = (DatePicker)item;
+
+                    CartoesModel cartao = new CartoesModel();
+                    cartao.CartaoName = entry.Text;
+                    cartao.CartaoVencimento = datePicker.Date;
+                    user.UserCartoes.Add(cartao);
+                }
             }
         }
     }
