@@ -11,6 +11,7 @@ autom4te.cache/
 tarballs/
 test-results/
 ControledeGastos.Android/google-services.json
+ControledeGastos.IOS/GoogleService-Info.plist
 
 # Mac bundle stuff
 *.dmg
