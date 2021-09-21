@@ -12,6 +12,7 @@ tarballs/
 test-results/
 ControledeGastos.Android/google-services.json
 ControledeGastos.IOS/GoogleService-Info.plist
+ControledeGastos/Services/FirebaseStringConnection.cs
 
 # Mac bundle stuff
 *.dmg
