@@ -18,14 +18,14 @@ namespace ControledeGastos.Services
     {
         private static IFirebaseAuthentication _auth;
         private static string _uid;
-        static FirebaseClient firebase = new FirebaseClient("https://controle-de-gastos-322513-default-rtdb.firebaseio.com",
+        static FirebaseClient firebase = new FirebaseClient(FirebaseStringConnection.Conexao(),
             new FirebaseOptions
             {
                 OfflineDatabaseFactory = (t, s) => new OfflineDatabase(t, s),
                 AuthTokenAsyncFactory = async () => await Task.FromResult(await _auth.GetUserTokenAsync()),
             });
 
-        //static FirebaseClient firebase = new FirebaseClient("https://controle-de-gastos-322513-default-rtdb.firebaseio.com");
+        //static FirebaseClient firebase = new FirebaseClient(FirebaseStringConnection.Conexao());
 
         static RealtimeDatabase<TradeModel> _tradeDB;
 
