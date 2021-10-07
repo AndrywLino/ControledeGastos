@@ -14,7 +14,7 @@ namespace ControledeGastos.Droid
 {
 	
 	
-	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "1.0.0.0")]
+	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "12.0.99.19")]
 	public partial class Resource
 	{
 		
@@ -16847,7 +16847,7 @@ namespace ControledeGastos.Droid
 			public const int fallback_menu_item_share_link = 2131623997;
 			
 			// aapt resource value: 0x7F0E003E
-			public const int fcm_fallback_notification_channel_label = 2131623998;
+			public const int firebase_database_url = 2131623998;
 			
 			// aapt resource value: 0x7F0E003F
 			public const int gcm_defaultSenderId = 2131623999;
